@@ -19,6 +19,15 @@ python_script="$1"
 # Log file for container output
 container_log="container_output.log"
 
+
+# Start collecting stats from board
+jetson_stats_log="jetson_stats.log"
+python3 jetson_stats.py  > "$jetson_stats_log" 2>&1 &
+
+# Capture process ID
+stats_id=$!
+
+
 # Start the Docker container and run the Python script
 echo "$(timestamp) - Starting Docker container and running $python_script"
 
@@ -30,6 +39,9 @@ container_id=$!
 
 # Wait for the Docker container to finish
 docker wait "$container_id" > /dev/null
+
+# Kill process
+kill $stats_id
 
 # Save the Docker container's exit status
 container_exit_status=$?
@@ -46,12 +58,17 @@ else
     echo "$(timestamp) - Docker container exited with an error (Exit status: $container_exit_status)"
 fi
 
+# Print the Jetson board stats output file location
+echo "$(timestamp) - Jetson stats output file: $jetson_stats_log"
+
 # Print the container output file location
 echo "$(timestamp) - Container output file: $container_log"
 
-# Changing /logs ownership from 'root' to 'nvidia'
-echo "$(timestamp) - Changing [/logs] ownership from 'root' to 'nvidia'"
-sudo chown -R nvidia ./logs/
 
-echo "$(timestamp) - Launching Tensorboard"
-tensorboard --logdir=logs
+#### OPTIONAL ###
+# Changing /logs ownership from 'root' to 'nvidia'
+# echo "$(timestamp) - Changing [/logs] ownership from 'root' to 'nvidia'"
+# sudo chown -R nvidia ./logs/
+
+# echo "$(timestamp) - Launching Tensorboard"
+# tensorboard --logdir=logs
