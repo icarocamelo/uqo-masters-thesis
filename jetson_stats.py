@@ -3,22 +3,24 @@ import datetime
 import time
 
 with jtop() as jetson:
-    # jetson.ok() will provide the proper update frequency
     while jetson.ok():
-        # Print all cpu
-        for name, data in jetson.memory.items():
-            # print(jetson.stats)
+        record = {}
 
+        record['time'] = jetson.stats['time'].timestamp()
+        record['GPU'] = jetson.stats['GPU']
+        record['CPU1'] = jetson.stats['CPU1']
+        record['CPU2'] = jetson.stats['CPU2']
+        record['CPU3'] = jetson.stats['CPU3']
+        record['CPU4'] = jetson.stats['CPU4']
+        record['CPU5'] = jetson.stats['CPU5']
+        record['CPU6'] = jetson.stats['CPU6']
+        record['Temp CPU'] = jetson.stats['Temp CPU']
+        record['Temp GPU'] = jetson.stats['Temp GPU']
+
+        for name, mem_data in jetson.memory.items():
             if name == "RAM":
-                # print("------ {name} ------".format(name=name))
-                ct = datetime.datetime.now()
-                # print("current time:-", ct)
-                data['ts'] = ct.timestamp()
-                print(data)
-                time.sleep(5)
+                record['RAM_Total'] = mem_data['tot']
+                record['RAM_Usage'] = mem_data['used']
 
-#with jtop() as jetson:
-#    # jetson.ok() will provide the proper update frequency
-#    while jetson.ok():
-#        # Read tegra stats
-#        print(jetson.stats)
+        
+        print(record)

@@ -1,10 +1,14 @@
 import json
+import sys
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
+file_path = sys.argv[1]
+
 # Read JSON data from file
-with open('data.json', 'r') as file:
+with open(file_path, 'r') as file:
     json_data = file.read()
 
 # Load JSON data into a list of dictionaries
@@ -19,6 +23,7 @@ cpu4_values = []
 cpu5_values = []
 cpu6_values = []
 ram_values = []
+ram_usage_values = []
 gpu_values = []
 temp_cpu_values = []
 temp_gpu_values = []
@@ -31,7 +36,8 @@ for entry in data:
     cpu4_values.append(entry['CPU4'])
     cpu5_values.append(entry['CPU5'])
     cpu6_values.append(entry['CPU6'])
-    ram_values.append(entry['RAM'])
+    ram_values.append(entry['RAM_Total'])
+    ram_usage_values.append(entry['RAM_Usage'])
     gpu_values.append(entry['GPU'])
     temp_cpu_values.append(entry['Temp CPU'])
     temp_gpu_values.append(entry['Temp GPU'])
@@ -45,7 +51,8 @@ df = pd.DataFrame({
     'CPU4': cpu4_values,
     'CPU5': cpu5_values,
     'CPU6': cpu6_values,
-    'RAM': ram_values,
+    'RAM Total': ram_values,
+    'RAM Usage': ram_usage_values,
     'GPU': gpu_values,
     'Temp CPU': temp_cpu_values,
     'Temp GPU': temp_gpu_values
