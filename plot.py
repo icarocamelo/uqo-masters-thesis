@@ -52,16 +52,24 @@ df = pd.DataFrame({
 })
 
 # Melt the DataFrame
-df_melt = df.melt('time', var_name='Property', value_name='Value')
+df_melted = df.melt('time', var_name='Property', value_name='Value')
 
+# Plotting the data using Seaborn
+plt.figure(figsize=(10, 6))
+sns.lineplot(x='time', y='Value', hue='Property', data=df_melted, linewidth=2)
 
-# Plotting the properties over time using Seaborn
-sns.lineplot(x='time', y='Value', hue='Property', data=df_melt)
+# Customization
+plt.xlabel('Time', fontsize=12)
+plt.ylabel('Value', fontsize=12)
+plt.title('System Metrics Over Time', fontsize=14)
+plt.xticks(fontsize=10, rotation=45)
+plt.yticks(fontsize=10)
+plt.legend(fontsize=10)
 
-# Add labels and title
-plt.xlabel('Time')
-plt.ylabel('Value')
-plt.title('Time Series Plot')
+# Set background color
+plt.gca().set_facecolor('#F0F0F0')
+plt.gcf().set_facecolor('#FFFFFF')
 
 # Show the plot
+plt.tight_layout()
 plt.show()
