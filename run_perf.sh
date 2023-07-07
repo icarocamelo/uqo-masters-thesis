@@ -2,11 +2,11 @@
 
 # Function to display a formatted timestamp
 timestamp() {
-    date +"%Y-%m-%d %T"
+    date +"%Y-%m-%d-%T"
 }
 
 # Start timestamp
-echo "$(timestamp) - Starting training monitoring"
+echo "$(timestamp) - Starting monitoring..."
 
 # Check if a Python script is provided as an argument
 if [ -z "$1" ]; then
@@ -19,14 +19,15 @@ python_script="$1"
 # Log file for container output
 container_log="container_output.log"
 
-
 # Start collecting stats from board
-jetson_stats_log="jetson_stats.log"
-python3 jetson_stats.py  > "$jetson_stats_log" 2>&1 &
+jetson_stats_log="jetson_stats-$(timestamp).log"
 
-# Capture process ID
-stats_id=$!
+echo "$(timestamp) - Starting collecting stats from board and running [jetson_stats.py]"
+python3 jetson_stats.py > "$jetson_stats_log" 2>&1 &
+echo "$(timestamp) - Outputting logs to $jetson_stats_log"
 
+# Capture the PID of the system monitoring script
+monitor_pid=$!
 
 # Start the Docker container and run the Python script
 echo "$(timestamp) - Starting Docker container and running $python_script"
@@ -39,9 +40,6 @@ container_id=$!
 
 # Wait for the Docker container to finish
 docker wait "$container_id" > /dev/null
-
-# Kill process
-kill $stats_id
 
 # Save the Docker container's exit status
 container_exit_status=$?
@@ -57,6 +55,11 @@ if [ $container_exit_status -eq 0 ]; then
 else
     echo "$(timestamp) - Docker container exited with an error (Exit status: $container_exit_status)"
 fi
+
+# Stop the system monitoring script
+echo "$(timestamp) - Stopping system monitoring"
+kill $monitor_pid
+echo "$(timestamp) - System monitoring stopped"
 
 # Print the Jetson board stats output file location
 echo "$(timestamp) - Jetson stats output file: $jetson_stats_log"
