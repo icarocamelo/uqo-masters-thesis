@@ -13,7 +13,7 @@
 
 1. Start training
 ```
-./run_perf.sh mnist.py
+./run_perf.sh <MODEL.py>
 ```
 
 2. Prepare logs merging JSON objects to JSON array
@@ -27,24 +27,19 @@ python3 prepare_logs.py <LOG_FILE.log>
 python3 plot.py <LOG_FILE.json>
 ```
 
-## Pytorch
+## Anaconda environment
+
+
+- Create environment
+
 ```
-- conda install pytorch torchvision cudatoolkit=11.4 -c pytorch
+# Create an Anaconda environment from scratch
+$ conda create -n thesis python=3.8
 
-- Container: nvcr.io/nvidia/l4t-pytorch:r35.2.1-pth2.0-py3
+# Recreate the environment from the file
+$ conda env create -f environment.yml -v
+
+# Activate the new environment
+$ conda activate thesis
 ```
-
-Link: https://catalog.ngc.nvidia.com/orgs/nvidia/containers/l4t-pytorch
-
-
-## Tensorflow
-- Install tensorboard profile
-``` 
-  pip install tensorboard-plugin-profile
-```
-
-- Conda useful commands
-  - conda create --name <env> --file requirements.txt
-  - conda create -n my_project python=3.8
-  - conda list -e > requirements.txt
 
