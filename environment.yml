@@ -137,4 +137,8 @@ dependencies:
   - zipp=3.11.0=py38hd43f75c_0
   - zlib=1.2.13=h998d150_0
   - zstd=1.5.5=h6a09583_0
+  - pip:
+      - distro==1.8.0
+      - jetson-stats==4.2.2
+      - smbus2==0.4.2
 prefix: /home/nvidia/miniconda3/envs/thesis
