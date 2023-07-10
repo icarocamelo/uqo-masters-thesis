@@ -5,6 +5,13 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 from sklearn.metrics import precision_score, recall_score, f1_score
+from torch.profiler import profile, record_function, ProfilerActivity
+import warnings
+
+
+# Disabling warnings
+warnings.filterwarnings("ignore")
+
 
 # Set device to GPU if available, otherwise use CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -24,10 +31,10 @@ transform_test = transforms.Compose([
 
 # Load CIFAR-10 dataset
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform_train)
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True, num_workers=2)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True, num_workers=0)
 
 testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
-testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=False, num_workers=2)
+testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=False, num_workers=0)
 
 # Define MobileNetV2 model
 mobilenet = torchvision.models.mobilenet_v2(pretrained=False)
@@ -71,18 +78,20 @@ print('Calculating metrics...')
 # Evaluation on test set
 true_labels = []
 predicted_labels = []
-correct = 0
-total = 0
 
-with torch.no_grad():
+with torch.no_grad(), profile(activities=[ProfilerActivity.CPU, ProfilerActivity.CUDA], profile_memory=True, record_shapes=True) as prof:
     for data in testloader:
         images, labels = data[0].to(device), data[1].to(device)
-        outputs = mobilenet(images)
-        _, predicted = torch.max(outputs.data, 1)
+        with record_function("Model Inference"):
+            outputs = mobilenet(images)
+            _, predicted = torch.max(outputs.data, 1)
         true_labels.extend(labels.cpu().numpy())
         predicted_labels.extend(predicted.cpu().numpy())
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
+
+print(prof.key_averages().table(sort_by="cuda_time_total", row_limit=10)) 
+print(prof.key_averages().table(sort_by="self_cpu_memory_usage", row_limit=10))
+print(prof.key_averages().table(sort_by="cpu_memory_usage", row_limit=10))
+
 
 # Convert lists to numpy arrays
 true_labels = np.array(true_labels)
@@ -96,5 +105,4 @@ f_score = f1_score(true_labels, predicted_labels, average='macro')
 print("Precision:", precision)
 print("Recall:", recall)
 print("F-score:", f_score)
-print(f'Accuracy on test set: {100 * correct / total:.2f}%')
 
