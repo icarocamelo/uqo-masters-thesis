@@ -17,7 +17,7 @@ fi
 python_script="$1"
 
 # Log file for container output
-container_log="container_output.log"
+container_log="container_output-$(timestamp).log"
 
 # Start collecting stats from board
 jetson_stats_log="jetson_stats-$(timestamp).log"
