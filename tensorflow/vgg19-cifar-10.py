@@ -1,6 +1,9 @@
 import tensorflow as tf
 from tensorflow.keras import datasets, layers, models, optimizers
 
+# Enable profiler
+tf.profiler.experimental.start('/root/home-nvidia/uqo-masters-thesis/logs')
+
 # Load the CIFAR-10 dataset
 (x_train, y_train), (x_test, y_test) = datasets.cifar10.load_data()
 
@@ -29,3 +32,4 @@ test_loss, test_acc = model.evaluate(x_test, y_test)
 print("Test Loss:", test_loss)
 print("Test Accuracy:", test_acc)
 
+tf.profiler.experimental.stop()
