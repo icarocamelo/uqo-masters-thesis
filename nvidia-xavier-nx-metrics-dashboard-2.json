@@ -1,0 +1,420 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 20,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "fc095cb5-348e-42f9-ad6f-fc065fe730e6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.2-cloud.1.94a6f396",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "fc095cb5-348e-42f9-ad6f-fc065fe730e6"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.*.GPU",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.CPU1",
+              "language": "jsonpath",
+              "name": ""
+            },
+            {
+              "jsonPath": "$.*.CPU2",
+              "language": "jsonpath",
+              "name": ""
+            },
+            {
+              "jsonPath": "$.*.CPU3",
+              "language": "jsonpath",
+              "name": ""
+            },
+            {
+              "jsonPath": "$.*.CPU4",
+              "language": "jsonpath",
+              "name": ""
+            },
+            {
+              "jsonPath": "$.*.CPU5",
+              "language": "jsonpath",
+              "name": ""
+            },
+            {
+              "jsonPath": "$.*.CPU6",
+              "language": "jsonpath",
+              "name": ""
+            },
+            {
+              "jsonPath": "$.*.time",
+              "language": "jsonpath",
+              "name": "",
+              "type": "time"
+            }
+          ],
+          "key": "Q-95923d63-2c50-4803-9306-cb46644cd125-0",
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "System metrics - CPU/GPU",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "fc095cb5-348e-42f9-ad6f-fc065fe730e6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 2,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "deckbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.2-cloud.1.94a6f396",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "fc095cb5-348e-42f9-ad6f-fc065fe730e6"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.*.RAM_Usage",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.RAM_Total",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.time",
+              "language": "jsonpath",
+              "name": "",
+              "type": "time"
+            }
+          ],
+          "key": "Q-95923d63-2c50-4803-9306-cb46644cd125-0",
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "RAM usage",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "fc095cb5-348e-42f9-ad6f-fc065fe730e6"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 1,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 26
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.0.2-cloud.1.94a6f396",
+      "targets": [
+        {
+          "cacheDurationSeconds": 300,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "fc095cb5-348e-42f9-ad6f-fc065fe730e6"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.*.Temp CPU",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.Temp GPU",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.*.time",
+              "language": "jsonpath",
+              "name": "",
+              "type": "time"
+            }
+          ],
+          "key": "Q-95923d63-2c50-4803-9306-cb46644cd125-0",
+          "method": "GET",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": ""
+        }
+      ],
+      "title": "RAM usage",
+      "transformations": [],
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2023-07-10T17:22:50.695Z",
+    "to": "2023-07-10T17:41:56.014Z"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "pytorch/mobilenetv2-cifar-10.py",
+  "uid": "d5e61a1f-c73d-48cb-894c-4f345a98d9d4",
+  "version": 6,
+  "weekStart": ""
+}
