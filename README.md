@@ -46,3 +46,25 @@ $ conda env create -f environment.yml -v
 $ conda activate thesis
 ```
 
+## Tensorflow profiler
+
+1. Fix protobuf version in my local dev (not docker) to be able to capture profile data and see them later on Tensorflow. Otherwise, the Profile tab doesn't work.
+```
+pip3 install --upgrade "protobuf<=3.20.1"
+```
+
+2. Change '/logs' folder ownership from 'root' to 'nvidia' and run tensorboard
+```
+sudo chown -R nvidia ./logs
+```
+
+3. Start Tensorboard to visualize profiling data
+```
+tensorboard --logdir=logs
+```
+
+4. Optional: upload experiments to tensorboard.dev
+```
+tensorboard dev upload --logdir {logdir}
+```
+
