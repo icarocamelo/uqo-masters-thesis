@@ -23,7 +23,11 @@ python3 prepare_logs.py <LOG_FILE.log>
 3. Plot results
 
 ```
+# only plot on prepared json
 python3 plot.py <LOG_FILE.json>
+
+# prepare and plot graph in one command
+python3 prepare_logs.py <container_output-*.log> | xargs -I{} python3 plot.py {}
 ```
 
 ## Anaconda environment

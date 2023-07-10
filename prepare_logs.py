@@ -38,4 +38,5 @@ output_file_path = f"{log_file_path}_{timestamp}.json"
 # Write the JSON array to the output file
 write_output_file(json_array, output_file_path)
 
-print(f"Output file '{output_file_path}' created.")
+# print(f"Output file '{output_file_path}' created.")
+print(output_file_path)
