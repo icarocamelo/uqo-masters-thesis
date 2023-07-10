@@ -3,6 +3,8 @@ import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.optim as optim
+import numpy as np
+from sklearn.metrics import precision_score, recall_score, f1_score
 
 # Set device to GPU if available, otherwise use CPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -65,16 +67,34 @@ for epoch in range(num_epochs):
 
 print('Finished training')
 
+print('Calculating metrics...')
 # Evaluation on test set
+true_labels = []
+predicted_labels = []
 correct = 0
 total = 0
+
 with torch.no_grad():
     for data in testloader:
         images, labels = data[0].to(device), data[1].to(device)
         outputs = mobilenet(images)
         _, predicted = torch.max(outputs.data, 1)
+        true_labels.extend(labels.cpu().numpy())
+        predicted_labels.extend(predicted.cpu().numpy())
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
 
+# Convert lists to numpy arrays
+true_labels = np.array(true_labels)
+predicted_labels = np.array(predicted_labels)
+
+# Calculate precision, recall, and F-score
+precision = precision_score(true_labels, predicted_labels, average='macro')
+recall = recall_score(true_labels, predicted_labels, average='macro')
+f_score = f1_score(true_labels, predicted_labels, average='macro')
+
+print("Precision:", precision)
+print("Recall:", recall)
+print("F-score:", f_score)
 print(f'Accuracy on test set: {100 * correct / total:.2f}%')
 
