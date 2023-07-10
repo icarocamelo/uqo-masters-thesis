@@ -47,7 +47,12 @@ $ conda activate thesis
 ```
 
 ## Tensorflow profiler
+- Start Tensorboard to visualize profiling data
+```
+./start-tensorboard.sh
+```
 
+### Troubleshooting Tensorflow profiling
 1. Fix protobuf version in my local dev (not docker) to be able to capture profile data and see them later on Tensorflow. Otherwise, the Profile tab doesn't work.
 ```
 pip3 install --upgrade "protobuf<=3.20.1"
