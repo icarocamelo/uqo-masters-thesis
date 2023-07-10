@@ -2,10 +2,9 @@
 
 - Implementation of CNN models on NVIDIA Xavier NX
   - MobileNetV2
-  - VGG 16
+  - VGG 19
 
 - Datasets
-  - MNIST
   - CIFAR 10
 
 

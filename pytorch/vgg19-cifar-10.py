@@ -27,17 +27,16 @@ trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True,
 testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
 testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=False, num_workers=2)
 
-# Define MobileNetV2 model
-mobilenet = torchvision.models.mobilenet_v2(pretrained=False)
-num_features = mobilenet.classifier[1].in_features
-mobilenet.classifier[1] = nn.Linear(num_features, 10)  # Modify the last fully connected layer for 10 classes
+# Define VGG19 model
+vgg19 = torchvision.models.vgg19(pretrained=False)
+vgg19.classifier[-1] = nn.Linear(4096, 10)  # Modify the last fully connected layer for 10 classes
 
 # Move the model to the device (GPU/CPU)
-mobilenet = mobilenet.to(device)
+vgg19 = vgg19.to(device)
 
 # Define loss function and optimizer
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.SGD(mobilenet.parameters(), lr=0.001, momentum=0.9)
+optimizer = optim.SGD(vgg19.parameters(), lr=0.001, momentum=0.9)
 
 # Training loop
 num_epochs = 10
@@ -50,7 +49,7 @@ for epoch in range(num_epochs):
         optimizer.zero_grad()
 
         # Forward pass
-        outputs = mobilenet(inputs)
+        outputs = vgg19(inputs)
         loss = criterion(outputs, labels)
 
         # Backward pass and optimization
@@ -71,7 +70,7 @@ total = 0
 with torch.no_grad():
     for data in testloader:
         images, labels = data[0].to(device), data[1].to(device)
-        outputs = mobilenet(images)
+        outputs = vgg19(images)
         _, predicted = torch.max(outputs.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
