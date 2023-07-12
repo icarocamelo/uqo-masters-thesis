@@ -1,0 +1,10 @@
+2023-07-11-17:28:33 - Starting monitoring...
+2023-07-11-17:28:34 - Starting collecting stats from board and running [jetson_stats.py]
+2023-07-11-17:28:34 - Outputting logs to jetson_stats-2023-07-11-17:28:34.log
+2023-07-11-17:28:34 - Starting Docker container and running pytorch/mobilenetv2-cifar-10.py
+2023-07-11-21:36:01 - Docker container completed
+2023-07-11-21:36:01 - Docker container exited with an error (Exit status: 1)
+2023-07-11-21:36:01 - Stopping system monitoring
+2023-07-11-21:36:01 - System monitoring stopped
+2023-07-11-21:36:01 - Jetson stats output file: jetson_stats-2023-07-11-17:28:34.log
+2023-07-11-21:36:01 - Container output file: container_output-2023-07-11-17:28:33.log
