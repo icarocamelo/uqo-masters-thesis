@@ -38,41 +38,45 @@ data['time'] = pd.to_datetime(data['time'], unit='s')
 plt.style.use('seaborn-whitegrid')
 
 # Create a figure with multiple subplots
-fig, axs = plt.subplots(5, 1, figsize=(15, 20), sharex=True)
+fig, axs = plt.subplots(8, 1, figsize=(15, 20), sharex=True)
 
+index = 0
 # Plot the GPU utilization over time
-axs[0].plot(data['time'], data['GPU'], color='blue', label='GPU')
-axs[0].set_ylabel('Utilization (%)')
-axs[0].set_title('GPU Utilization Over Time')
-axs[0].legend()
+axs[index].plot(data['time'], data['GPU'], color='blue', label='GPU')
+axs[index].set_ylabel('Utilization (%)')
+axs[index].set_title('GPU Utilization Over Time')
+axs[index].legend()
+
+index = index+1
 
 # Plot the CPU utilization over time
 for i in range(1, 7):
-    axs[1].plot(data['time'], data['CPU'+str(i)], label='CPU'+str(i))
-axs[1].set_ylabel('Utilization (%)')
-axs[1].set_title('CPU Utilization Over Time')
-axs[1].legend()
+    axs[index].plot(data['time'], data['CPU'+str(i)], label='CPU'+str(i))
+    axs[index].set_ylabel('Utilization (%)')
+    axs[index].set_title('CPU Utilization Over Time')
+    axs[index].legend()
+    index = index+1
 
 # Plot the CPU and GPU temperatures over time
-axs[2].plot(data['time'], data['Temp CPU'], color='red', label='CPU')
-axs[2].plot(data['time'], data['Temp GPU'], color='green', label='GPU')
-axs[2].set_ylabel('Temperature (°C)')
-axs[2].set_title('CPU and GPU Temperatures Over Time')
-axs[2].legend()
+axs[index].plot(data['time'], data['Temp CPU'], color='red', label='CPU')
+axs[index].plot(data['time'], data['Temp GPU'], color='green', label='GPU')
+axs[index].set_ylabel('Temperature (°C)')
+axs[index].set_title('CPU and GPU Temperatures Over Time')
+axs[index].legend()
 
 # Plot the RAM usage over time
-axs[3].plot(data['time'], data['RAM_Usage'] / 1024, color='purple', label='Usage')
-axs[3].plot(data['time'], [data['RAM_Total'][0] / 1024]*len(data), color='black', label='Total', linestyle='dashed')
-axs[3].set_ylabel('RAM (MB)')
-axs[3].set_title('RAM Usage Over Time')
-axs[3].legend()
+axs[index].plot(data['time'], data['RAM_Usage'] / 1024, color='purple', label='Usage')
+axs[index].plot(data['time'], [data['RAM_Total'][0] / 1024]*len(data), color='black', label='Total', linestyle='dashed')
+axs[index].set_ylabel('RAM (MB)')
+axs[index].set_title('RAM Usage Over Time')
+axs[index].legend()
 
 # Plot the RAM usage as a percentage of total RAM over time
-axs[4].plot(data['time'], data['RAM_Usage'] / data['RAM_Total'] * 100, color='purple', label='Usage')
-axs[4].set_xlabel('Time')
-axs[4].set_ylabel('Usage (%)')
-axs[4].set_title('RAM Usage as a Percentage of Total RAM Over Time')
-axs[4].legend()
+axs[index].plot(data['time'], data['RAM_Usage'] / data['RAM_Total'] * 100, color='purple', label='Usage')
+axs[index].set_xlabel('Time')
+axs[index].set_ylabel('Usage (%)')
+axs[index].set_title('RAM Usage as a Percentage of Total RAM Over Time')
+axs[index].legend()
 
 # Show the plots
 plt.tight_layout()
